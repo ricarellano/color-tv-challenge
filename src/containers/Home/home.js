@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Container, Searchbar, FormContainer, SearchButton, UserListContainer,
   Message, UserItem, StyledLink, LoadingContainer
 } from './home.styled'
