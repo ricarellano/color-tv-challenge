@@ -9,6 +9,17 @@ export const Container = styled.main`
   margin:1rem;
 `
 
+export const ErrorContainer = styled.main`
+  height: 100vh;
+  background: #F1F1F1;
+  margin:1rem;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
+  font-size: 1.6rem;
+`
+
 export const StyledLink = styled(Link)`
   background: url(${previous});
   width:3rem;

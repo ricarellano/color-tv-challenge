@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Container, Header, Photos, BigImage, StyledLink, BeforeButton,
-  NextButton, CloseButton } from './user.styled'
+  NextButton, CloseButton, ErrorContainer } from './user.styled'
 import { useParams } from 'react-router-dom'
 import LazyImage from '../../components/LazyImage'
 import { useSelector } from 'react-redux'
 import { getUser } from '../../features/user/userSlice'
+import { Link } from 'react-router-dom'
 
 
 
@@ -18,6 +19,7 @@ const UserContainer = () => {
   const [loading, setLoading] = useState(false)
   const [photos, setPhotos] = useState([])
   const [showImage, setShowImage] = useState(-1)
+  const [error, setError] = useState()
 
   const selectedUser = useSelector(getUser)
   
@@ -27,7 +29,11 @@ const UserContainer = () => {
       const url = `${API_URL}/users/${id}/photos?client_id=${ACCESS_KEY}`
       const response = await fetch(url)
       const responseJSON = await response.json()
-      setPhotos(responseJSON)
+      if(responseJSON.length) {
+        setPhotos(responseJSON)
+      }else {
+        setError(1)
+      }
       setLoading(false)
     }
     fetchData()
@@ -43,6 +49,14 @@ const UserContainer = () => {
 
   return(
     <Container>
+      {
+        error || selectedUser === null ? (
+          <ErrorContainer>
+            Error happens!
+            <p>Please <Link to="/">return</Link> with another user</p>
+          </ErrorContainer>
+        )
+        : <>
       {
         photos.length ? (
           <>
@@ -92,6 +106,8 @@ const UserContainer = () => {
 
         ) : null
   
+      }
+        </>
       }
     </Container>
   )
