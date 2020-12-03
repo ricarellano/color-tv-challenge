@@ -52,7 +52,7 @@ const HomeContainer = () =>  {
               <h3>{user.name}</h3>
               <p>{user.bio}</p>
               <div className="footer">
-                <Link to={`/user/${user.id}`}>Photos</Link>
+                <Link to={`/user/${user.username}`}>Photos</Link>
               </div>
               </div>
               </UserItem>)

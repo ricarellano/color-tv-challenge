@@ -3,7 +3,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import User from './user.container'
+import User from './containers/User/user'
 import Home from './containers/Home'
 import { GlobalStyle } from './Globalstyle.styled'
 
