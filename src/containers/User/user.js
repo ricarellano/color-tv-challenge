@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Container, Header, Photos, BigImage } from './user.styled'
+import { Container, Header, Photos, BigImage, StyledLink, BeforeButton,
+  NextButton, CloseButton } from './user.styled'
 import { useParams } from 'react-router-dom'
 import LazyImage from '../../components/LazyImage'
 import { useSelector } from 'react-redux'
@@ -46,7 +47,10 @@ const UserContainer = () => {
         photos.length ? (
           <>
             <Header>
-              <h2>{selectedUser.name}</h2>
+                <StyledLink to="/" />
+              <div className="info">
+                <h2>{selectedUser.name}</h2>
+              </div>
               <p>{selectedUser.bio}</p>
             </Header>
             <Photos>
@@ -72,7 +76,7 @@ const UserContainer = () => {
         showImage > -1 ? (
           <BigImage>
             <div className="header">
-              <button onClick={() => setShowImage(-1)}>close</button>
+              <CloseButton onClick={() => setShowImage(-1)}/>
             </div>
             <LazyImage
               key={photos[showImage].id}
@@ -81,8 +85,8 @@ const UserContainer = () => {
               large
             />
             <div className="footer">
-              <button onClick={() => showNextImage(-1)}>before</button>
-              <button onClick={() => showNextImage(1)}>next</button>
+              <BeforeButton onClick={() => showNextImage(-1)}/>
+              <NextButton onClick={() => showNextImage(1)}/>
             </div>
           </BigImage>
 
