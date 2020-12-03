@@ -24,8 +24,14 @@ const HomeContainer = () =>  {
     if(response) {
       setUsers(users.results)
     }
-    console.log(query)
     setLoading(false)
+  }
+
+  const getCurrentMessage = () => {
+    const searchMessage = 'Search for an user'
+    const loadingMessage = 'Loading users'
+
+    return loading ? loadingMessage : searchMessage
   }
 
   const changeSearch = (e) => setQuery(e.target.value)
@@ -37,7 +43,7 @@ const HomeContainer = () =>  {
       <SearchButton onClick={search}>Search</SearchButton>
     </FormContainer>
     {
-      users.length ? (
+      users.length && !loading ? (
         <UserListContainer>
           {
             users.map((user) => <UserItem id={user.id}>
@@ -53,7 +59,7 @@ const HomeContainer = () =>  {
           }
         </UserListContainer>
       )
-        : <Message>Search for an user</Message>
+        : <Message>{getCurrentMessage()}</Message>
     }
   </Container>
 )
