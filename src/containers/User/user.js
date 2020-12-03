@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Container, Header, Photos, BigImage, StyledLink, BeforeButton,
-  NextButton, CloseButton, ErrorContainer } from './user.styled'
+  NextButton, CloseButton, ErrorContainer, LoadingContainer } from './user.styled'
 import { useParams } from 'react-router-dom'
 import LazyImage from '../../components/LazyImage'
 import { useSelector } from 'react-redux'
 import { getUser } from '../../features/user/userSlice'
 import { Link } from 'react-router-dom'
+import ReactLoading from 'react-loading'
 
 
 
@@ -44,6 +45,14 @@ const UserContainer = () => {
     const newIndex = showImage + value
     const nextPhoto = photos[newIndex]
     if(nextPhoto) setShowImage(newIndex)
+  }
+
+  if(loading){
+    return(
+      <LoadingContainer>
+        <ReactLoading type="bubbles" color="#000" />
+      </LoadingContainer>
+    )
   }
 
 

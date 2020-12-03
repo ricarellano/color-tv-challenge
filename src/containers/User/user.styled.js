@@ -19,6 +19,16 @@ export const ErrorContainer = styled.main`
   align-items:center;
   font-size: 1.6rem;
 `
+export const LoadingContainer = styled.main`
+  height: 100vh;
+  background: #F1F1F1;
+  margin:1rem;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
+  font-size: 1.6rem;
+`
 
 export const StyledLink = styled(Link)`
   background: url(${previous});

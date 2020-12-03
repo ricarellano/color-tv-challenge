@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Searchbar, FormContainer, SearchButton, UserListContainer,
-  Message, UserItem, StyledLink
+  Message, UserItem, StyledLink, LoadingContainer
 } from './home.styled'
 import { setUser } from '../../features/user/userSlice'
 import { connect } from 'react-redux'
+import ReactLoading from 'react-loading'
 
 const API_URL = process.env.REACT_APP_API_URL
 const ACCESS_KEY = process.env.REACT_APP_API_KEY
@@ -69,10 +70,19 @@ const HomeContainer = ({ setUser }) =>  {
           }
         </UserListContainer>
       )
-      : <Message>
-        {getCurrentMessage()}
-        <p>{getCurrentSubMessage()}</p>
-        </Message>
+      : <>
+        {
+          loading ? 
+            <LoadingContainer>
+              <ReactLoading type="bubbles" color="#000" />
+            </LoadingContainer>
+              :
+          <Message>
+          {getCurrentMessage()}
+          <p>{getCurrentSubMessage()}</p>
+          </Message>
+        }
+      </>
     }
   </Container>
 )
