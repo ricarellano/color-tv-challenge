@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Searchbar, FormContainer, SearchButton, UserListContainer,
-  Message, UserItem
+  Message, UserItem, StyledLink
 } from './home.styled'
 import { setUser } from '../../features/user/userSlice'
 import { connect } from 'react-redux'
@@ -36,6 +36,13 @@ const HomeContainer = ({ setUser }) =>  {
 
     return loading ? loadingMessage : searchMessage
   }
+  
+  const getCurrentSubMessage = () => {
+    const searchMessage = 'Something great is about to happen'
+    const loadingMessage = 'Loading users'
+
+    return loading ? loadingMessage : searchMessage
+  }
 
   const changeSearch = (e) => setQuery(e.target.value)
 
@@ -43,7 +50,7 @@ const HomeContainer = ({ setUser }) =>  {
   <Container>
     <FormContainer>
     <Searchbar value={query} onChange={changeSearch} type="text"/>
-      <SearchButton onClick={search}>Search</SearchButton>
+      <SearchButton onClick={search}/>
     </FormContainer>
     {
       users.length && !loading ? (
@@ -52,17 +59,20 @@ const HomeContainer = ({ setUser }) =>  {
             users.map((user) => <UserItem id={user.id}>
               <img src={user.profile_image.medium} alt={user.name}/>
               <div className="info">
-              <h3>{user.name}</h3>
+              <h2>{user.name}</h2>
               <p>{user.bio}</p>
               <div className="footer">
-                <Link onClick={() => setUser(user)} to={`/user/${user.username}`}>Photos</Link>
+                <StyledLink onClick={() => setUser(user)} to={`/user/${user.username}`}/>
               </div>
               </div>
               </UserItem>)
           }
         </UserListContainer>
       )
-        : <Message>{getCurrentMessage()}</Message>
+      : <Message>
+        {getCurrentMessage()}
+        <p>{getCurrentSubMessage()}</p>
+        </Message>
     }
   </Container>
 )
