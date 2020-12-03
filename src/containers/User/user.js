@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { Container, Header, Photos, BigImage } from './user.styled'
 import { useParams } from 'react-router-dom'
 import LazyImage from '../../components/LazyImage'
+import { useSelector } from 'react-redux'
+import { getUser } from '../../features/user/userSlice'
+
+
 
 const API_URL = process.env.REACT_APP_API_URL
 const ACCESS_KEY = process.env.REACT_APP_API_KEY
@@ -13,6 +17,8 @@ const UserContainer = () => {
   const [loading, setLoading] = useState(false)
   const [photos, setPhotos] = useState([])
   const [showImage, setShowImage] = useState(-1)
+
+  const selectedUser = useSelector(getUser)
   
   useEffect(() => {
     const fetchData = async ()  => {
@@ -20,16 +26,14 @@ const UserContainer = () => {
       const url = `${API_URL}/users/${id}/photos?client_id=${ACCESS_KEY}`
       const response = await fetch(url)
       const responseJSON = await response.json()
-      console.log(responseJSON)
       setPhotos(responseJSON)
       setLoading(false)
     }
     fetchData()
 
-  }, [])
+  }, [id])
 
   const showNextImage = (value) => {
-    console.log(value)
     const newIndex = showImage + value
     const nextPhoto = photos[newIndex]
     if(nextPhoto) setShowImage(newIndex)
@@ -41,7 +45,10 @@ const UserContainer = () => {
       {
         photos.length ? (
           <>
-            <Header/>
+            <Header>
+              <h2>{selectedUser.name}</h2>
+              <p>{selectedUser.bio}</p>
+            </Header>
             <Photos>
               {
                 photos.map((photo,index) => (

@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import { Container, Searchbar, FormContainer, SearchButton, UserListContainer,
   Message, UserItem
 } from './home.styled'
+import { setUser } from '../../features/user/userSlice'
+import { connect } from 'react-redux'
 
 const API_URL = process.env.REACT_APP_API_URL
 const ACCESS_KEY = process.env.REACT_APP_API_KEY
 
+const mapDispatch = { setUser }
 
-const HomeContainer = () =>  {
+const HomeContainer = ({ setUser }) =>  {
 
   const [query, setQuery] = React.useState('')
   const [users, setUsers] = React.useState([])
@@ -52,7 +55,7 @@ const HomeContainer = () =>  {
               <h3>{user.name}</h3>
               <p>{user.bio}</p>
               <div className="footer">
-                <Link to={`/user/${user.username}`}>Photos</Link>
+                <Link onClick={() => setUser(user)} to={`/user/${user.username}`}>Photos</Link>
               </div>
               </div>
               </UserItem>)
@@ -65,5 +68,5 @@ const HomeContainer = () =>  {
 )
 }
 
-export default HomeContainer
+export default connect(null, mapDispatch)(HomeContainer)
 
